@@ -15,6 +15,21 @@ class _OrderState extends State<Order> {
         title: const Text("Order"),
         centerTitle: true,
       ),
+      body: Column(children: [
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, "/orderdetails");
+                }
+              );
+            }
+          )
+        )
+      ],)
     );
   }
 }
