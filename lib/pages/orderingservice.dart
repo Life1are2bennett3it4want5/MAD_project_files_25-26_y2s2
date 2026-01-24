@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
+class Order{
+  String main = "", appetizers = "", sides = "", drinks = "", dessert = "", table = "";
 
-class OrderDetails extends StatefulWidget {
-  const OrderDetails({super.key});
-
-  @override
-  State<OrderDetails> createState() => _OrderDetailsState();
+  Order(this.main, this.appetizers, this.sides, this.drinks, this.dessert, this.table);
 }
 
-class _OrderDetailsState extends State<OrderDetails> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+class OrderingService {
+  static List<Order> z = [];
+
+  
 }
