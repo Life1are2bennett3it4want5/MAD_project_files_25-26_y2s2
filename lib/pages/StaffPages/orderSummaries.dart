@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+class OrderSummaries extends StatefulWidget {
+  const OrderSummaries({super.key});
+
   @override
-  State<MenuPage> createState() => _UserLoginState();
+  State<OrderSummaries> createState() => _OrderSummariesState();
 }
 
-class _UserLoginState extends State<MenuPage> {
-  List<String> x = ["Main", "Appetizers", "Sides", "Drinks", "Desserts"];
+class _OrderSummariesState extends State<OrderSummaries> {
+  List<String> x = ["Main","Appetizers","Sides","Drinks","Desserts"];
+  List<String> y = ["1","2","3","4","5"];
   bool _customIcon = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Main Menu'),
-        centerTitle: true,
+        title: const Text("Orders"),
       ),
-
       body: ListView.builder(
         itemCount: x.length,
         itemBuilder: (context, index) {
@@ -32,15 +32,13 @@ class _UserLoginState extends State<MenuPage> {
             ),
 
             child: ExpansionTile(
-              backgroundColor: Colors.lightBlueAccent,
-
               leading: CircleAvatar(
                 radius: 22,
                 backgroundImage: AssetImage('assets/img/${x[index]}.png')
               ),
 
               title: Text(
-                x[index],
+                "Order ${y[index]}",
                 style: const TextStyle(
                   fontSize: 20
                 )
@@ -52,16 +50,18 @@ class _UserLoginState extends State<MenuPage> {
                 children: const [
                   ListTile(
                     title: Text(
-                      "- Spagetti Carbonara",
+                      '''
+                      Cheeseburger
+                      - Original Fries
+                      - Fried Oysters
+                      - Ginger Ale
+                      - Coffee Pudding
+
+                      Table 37
+                      ''',
                       style: TextStyle(fontSize: 17),
                     ),
                   ),
-                  ListTile(
-                    title: Text(
-                      "- Angus Beef Burger",
-                      style: TextStyle(fontSize: 17),
-                    )
-                  )
                 ],
 
               onExpansionChanged: (bool expanded){

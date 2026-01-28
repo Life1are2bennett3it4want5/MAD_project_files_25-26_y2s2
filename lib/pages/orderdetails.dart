@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'orderingservice.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({super.key});
@@ -17,7 +18,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
       body: Column(
         children: [
-          
+          Text(OrderingService.tappedMain),
         ],
       )
     );

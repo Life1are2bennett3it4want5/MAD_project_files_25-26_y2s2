@@ -13,49 +13,56 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   int _index = 0;
-  final _pages = const [
-    Menu(), 
-    Order(), 
-    Delivery(), 
-    Account()
-  ];
+  final _pages = const [MenuPage(), Order(), Delivery(), Account()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _index,
-        children: _pages,
-      ),
+        body: IndexedStack(
+          index: _index,
+          children: _pages,
+        ),
 
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        destinations: const[
-          NavigationDestination(
-            icon: Icon(Icons.menu_book),
-            label: "Menu",
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Colors.black,
+                width: 1,
+              )
+            )
           ),
-          NavigationDestination(
-            icon: Icon(Icons.receipt),
-            label: "Order",
+
+          child: NavigationBar(
+            selectedIndex: _index,
+            
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.menu_book),
+                label: "Menu",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.receipt),
+                label: "Order",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.delivery_dining),
+                label: "Delivery",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.login),
+                label: "Account",
+              )
+            ],
+
+            backgroundColor: const Color.fromRGBO(255,192,0,1),
+            height: 80,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _index = index;
+              });
+            },
           ),
-          NavigationDestination(
-            icon: Icon(Icons.delivery_dining),
-            label: "Delivery",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.login),
-            label: "Account",
-          )
-        ],
-        backgroundColor: Colors.white,
-        height: 80,
-        onDestinationSelected: (int index){
-          setState(() {
-            _index = index;
-          });
-        },
-      ),
-    );
+        ));
   }
 }

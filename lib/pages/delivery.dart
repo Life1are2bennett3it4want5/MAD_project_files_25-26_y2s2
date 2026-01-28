@@ -13,8 +13,9 @@ class Delivery extends StatefulWidget {
 class _DeliveryState extends State<Delivery> {
   final TextEditingController _unitNum = TextEditingController();
   bool _isLoading = false;
-  String _locationMessage = "location not set";
-  String unitNumber = "Unit Number";
+  String _locationMessage = "Address location not set";
+  String unitNumber = "";
+
   
   Future<void> _updateLocation() async {
     setState(() => _isLoading = true);
@@ -24,7 +25,7 @@ class _DeliveryState extends State<Delivery> {
       List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
 
       setState((){
-        _locationMessage = "Address: Block ${placemark[0].street}, ${placemark[0].country} ${placemark[0].postalCode} ";
+        _locationMessage = "Address: \nBlock ${placemark[0].street}, \n${placemark[0].country}, \n${placemark[0].postalCode}, \n";
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,18 +58,21 @@ class _DeliveryState extends State<Delivery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Delivery"),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        toolbarHeight: 30,
       ),
       body: ListView(
         children: [
           Column(
             children: [
+              const SizedBox(height: 20),
+
               const Icon(Icons.location_on, size: 50, color: Colors.red),
 
               const SizedBox(height: 20),
 
               Text(_locationMessage, style: const TextStyle(fontSize: 16)),
+              Text(unitNumber, style: const TextStyle(fontSize: 16)),
 
               const SizedBox(height: 20),
 
@@ -83,34 +87,39 @@ class _DeliveryState extends State<Delivery> {
               
               const SizedBox(height:20),
               
-              TextField(
-                controller: _unitNum,
-                decoration: InputDecoration(
-                  labelText: unitNumber,
-                  border: const OutlineInputBorder(),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: _unitNum,
+                  decoration: const InputDecoration(
+                    labelText: "Unit number",
+                    border: OutlineInputBorder(),
+                  ),
 
-                onChanged: (value){
-                  
-                },
+                  onChanged: (value){
+                    
+                  },
+                ),
               ),
               
               FilledButton(
                 onPressed: () {
                   if(_unitNum.text.trim().isEmpty){
-                    setState((){
-                      unitNumber = "unit number must not be empty";
-                    });
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(unitNumber))
+                      const SnackBar(
+                        content: Text("unit number must not be empty"),
+                        backgroundColor: Colors.lightBlue,
+                      )
                     );
                   }
                   else{
-
+                    setState(() => unitNumber = "Unit Number: ${_unitNum.text.toString()} \n");
                   }
                 },
                 child: const Text("Set unit number")
-              )
+              ),
+
+              
             ],
           )
         ]

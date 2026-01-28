@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+class OrderMenuPage extends StatefulWidget {
+  const OrderMenuPage({super.key});
   @override
-  State<MenuPage> createState() => _UserLoginState();
+  State<OrderMenuPage> createState() => _UserLoginState();
 }
 
-class _UserLoginState extends State<MenuPage> {
+class _UserLoginState extends State<OrderMenuPage> {
   List<String> x = ["Main", "Appetizers", "Sides", "Drinks", "Desserts"];
   bool _customIcon = false;
   @override
@@ -49,20 +49,14 @@ class _UserLoginState extends State<MenuPage> {
               trailing: Icon(
                 _customIcon ? Icons.arrow_drop_down_circle: Icons.arrow_drop_down),
 
-                children: const [
-                  ListTile(
-                    title: Text(
-                      "- Spagetti Carbonara",
-                      style: TextStyle(fontSize: 17),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      "- Angus Beef Burger",
-                      style: TextStyle(fontSize: 17),
-                    )
-                  )
-                ],
+              children: const [
+                ListTile(
+                  title: Text("Spagetti Carbonara"),
+                ),
+                ListTile(
+                  title: Text("Angus Beef Burger")
+                )
+              ],
 
               onExpansionChanged: (bool expanded){
                 setState(() =>
