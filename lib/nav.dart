@@ -13,7 +13,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   int _index = 0;
-  final _pages = const [MenuPage(), Order(), Delivery(), Account()];
+  final _pages = const [MenuPage(), Order(), Delivery(), Account(), ];
+  static const IconData settings = IconData(0xe57f, fontFamily: 'MaterialIcons');
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,10 @@ class _LoginPageState extends State<LoginPage> {
               NavigationDestination(
                 icon: Icon(Icons.login),
                 label: "Account",
+              ),
+              NavigationDestination(
+                icon: Icon(settings),
+                label: "Settings",
               )
             ],
 

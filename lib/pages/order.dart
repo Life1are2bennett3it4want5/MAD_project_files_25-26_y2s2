@@ -15,77 +15,114 @@ class _OrderState extends State<Order> {
         title: const Text("Order"),
         centerTitle: true,
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: Column(
           children: [
-            //dine in icon
-            SizedBox(
-              height: 150,
-              width: 150,
-              child: GestureDetector(
-                onTap: () => {
-                  Navigator.pushNamed(context, "/ordermenu"),
-                },
-                child: const Card(
-                  color: Color.fromARGB(200,224,224,224),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text(
-                          "Dine in",
-                          style: TextStyle(
-                            fontSize: 18
+            const SizedBox(height: 20),
+            const Text("Start an order", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            const SizedBox(height: 50),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //dine in icon
+                  SizedBox(
+                    height: 85,
+                    width: 375,
+                    child: GestureDetector(
+                      onTap: () => {
+                        Navigator.pushNamed(context, "/location"),
+                      },
+                      child: const Card(
+                        child: Center(
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Icon(
+                                IconData(0xe296, fontFamily:'MaterialIcons'),
+                                size: 50
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 15),
+                                  Text(
+                                    "Pickup / Dine in (table service)",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  SizedBox(height:5),
+                                  Text(
+                                    "Check your table number",
+                                    style: TextStyle(
+                                      fontSize: 13
+                                    ),
+                                  ),
+                                  SizedBox(height:15),
+                                ],
+                              ),
+                            ],
                           )
-                        ),
-                        Icon(
-                          IconData(0xe296, fontFamily:'MaterialIcons'),
-                          size: 100
                         )
-                      ],
-                    )
-                  )
-                )
-              )
-            ),
-
-            //Delivery icon
-            SizedBox(
-              height: 150,
-              width: 150,
-              child: GestureDetector(
-                onTap: () => {
-
-                },
-                child: const Card(
-                  color: Color.fromARGB(200,224,224,224),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text(
-                          "Delivery",
-                          style: TextStyle(
-                            fontSize: 18
-                          )
-                        ),
-                        Icon(
-                          IconData(0xe40a, fontFamily:'MaterialIcons'),
-                          size: 100
-                        )
-                      ],
+                      )
                     )
                   ),
-                  
-                )
-              )
+              
+                  //Delivery icon
+                  SizedBox(
+                    height: 85,
+                    width: 375,
+                    child: GestureDetector(
+                      onTap: () => {
+              
+                      },
+                      child: const Card(
+                        child: Center(
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Icon(
+                                IconData(0xe40a, fontFamily:'MaterialIcons'),
+                                size: 50,
+                              ),
+                              SizedBox(width:10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 15),
+                                  Text(
+                                    "Delivery",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  SizedBox(height:5),
+                                  Text(
+                                    "To your door in 30-40 minutes",
+                                    style: TextStyle(
+                                      fontSize: 13
+                                    ),
+                                  ),
+                                  SizedBox(height:15),
+                                ],
+                              ),
+                            ],
+                          )
+                        ),
+                        
+                      )
+                    )
+                  ),
+              
+                ],
+              ),
             ),
-
           ],
         )
-      )
-    );
+      );
   }
 }

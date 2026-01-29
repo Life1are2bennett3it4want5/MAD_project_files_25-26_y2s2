@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   geolocator: ^14.0.2
   geocoding: ^4.0.0
+  google_fonts: ^6.1.0
+  google_maps_flutter: ^2.14.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +72,10 @@ flutter:
     - assets/img/Drinks.png
     - assets/img/Desserts.png
     - assets/img/Main.png
+    - assets/img/StartupImg.jpeg
+
+    - assets/menu/Spaghetti-Carbonara.webp
+    - assets/menu/AngusBeefBurger.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -5,6 +5,7 @@ class Order{
 }
 
 class OrderingService{
+  //detect the tapped order
   static String tappedMain="";
   static String tappedAppetizers="";
   static String tappedSides="";
@@ -37,7 +38,8 @@ class OrderingService{
     }
   }
 
-  static void removeOrder(int index){
+  static void deleteOrder(int index){
     z.removeAt(index);
   }
+
 }

@@ -19,7 +19,7 @@ class _StaffLoginState extends State<StaffLogin> {
       body: Column(
         children: [
           const SizedBox(height: 40),
-          const Center(child: Text("Sign in", style: TextStyle(fontSize: 25, color: Colors.white)),),
+          const Center(child: Text("Staff Login", style: TextStyle(fontSize: 25, color: Colors.white,),),),
           const SizedBox(height:20),
           TextField(
             controller: _IdController,
@@ -60,11 +60,15 @@ class _StaffLoginState extends State<StaffLogin> {
               }
             },
 
-            child: const Text("Sign in")
-          )
+            child: const Text(
+              "Staff Login",
+            )
+          ),
+
+          
         ]
       ),
-      backgroundColor: const Color.fromRGBO(0, 55, 71, 0.8),
+      backgroundColor: const Color.fromARGB(255, 243, 228, 143),
     );
   }
 }

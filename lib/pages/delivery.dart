@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'locationservice.dart';
+import 'location/locationservice.dart';
 
 class Delivery extends StatefulWidget {
   const Delivery({super.key});

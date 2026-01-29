@@ -32,7 +32,7 @@ class _UserLoginState extends State<MenuPage> {
             ),
 
             child: ExpansionTile(
-              backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: const Color.fromARGB(144, 255, 166, 64),
 
               leading: CircleAvatar(
                 radius: 22,
@@ -45,9 +45,6 @@ class _UserLoginState extends State<MenuPage> {
                   fontSize: 20
                 )
               ),
-
-              trailing: Icon(
-                _customIcon ? Icons.arrow_drop_down_circle: Icons.arrow_drop_down),
 
                 children: const [
                   ListTile(

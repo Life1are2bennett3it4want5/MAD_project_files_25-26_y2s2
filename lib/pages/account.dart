@@ -39,7 +39,7 @@ class _AccountState extends State<Account> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               width: 200,
               height: 100, 
               child: Card(

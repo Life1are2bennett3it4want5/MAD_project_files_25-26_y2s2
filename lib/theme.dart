@@ -12,7 +12,6 @@ ThemeData primaryTheme = ThemeData(
           width: 1,
         )
       ),
-      backgroundColor: Color.fromRGBO(255,120,0,1),
       foregroundColor: Colors.black,
       centerTitle: true,
     ),
