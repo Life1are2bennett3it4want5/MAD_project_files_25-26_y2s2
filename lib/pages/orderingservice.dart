@@ -19,7 +19,11 @@ class OrderingService{
     return (z.length);
   }
 
-  static void addOrder(String main, String appetizers, String sides, String drinks, String dessert, String table){
+  static void addTable(String table) {
+    z.add(Order('', '', '', '', '', table));
+  }
+
+  static void addOrder({required String main, required String appetizers, required String sides, required String drinks, required String dessert, required String table, }){
     z.add(Order(main, appetizers, sides, drinks, dessert, table));
   }
 
@@ -33,7 +37,8 @@ class OrderingService{
         z[i].appetizers = newAppetizers;
         z[i].sides = newSides;
         z[i].drinks = newDrinks;
-        z[i].dessert = newDrinks;
+        z[i].dessert = newDessert;
+        z[i].table = newTable;
       }
     }
   }

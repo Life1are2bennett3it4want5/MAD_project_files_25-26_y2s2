@@ -7,6 +7,7 @@ import 'pages/ordermenu.dart';
 import 'pages/login/stafflogin.dart';
 import 'pages/StaffPages/orderSummaries.dart';
 import 'pages/mappage.dart';
+import 'pages/inputtable.dart';
 
 void main(){
   runApp( MaterialApp(
@@ -19,6 +20,7 @@ void main(){
         "/stafflogin": (context) => const StaffLogin(),
         "/ordersummaries": (context) => const OrderSummaries(),
         "/location": (context) => const MapPage(),
+        "/tablenumber": (context) => const InputTable(),
       }
     )
   );

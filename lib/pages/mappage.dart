@@ -52,7 +52,7 @@ class _MapPageState extends State<MapPage> {
                         ElevatedButton(
                           onPressed: () {
                             Navigator.pop(context); // close the popup
-                            Navigator.pushNamed(context, '/ordermenu');
+                            Navigator.pushNamed(context, '/tablenumber');
                           },
                           child: const Text("Dine in here"),
                         ),
