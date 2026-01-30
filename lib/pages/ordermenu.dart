@@ -11,6 +11,11 @@ class OrderMenuPage extends StatefulWidget {
 class _UserLoginState extends State<OrderMenuPage> {
   List<String> options = [];
   bool _argsHandled = false;
+  String? selectedMain;
+  String? selectedAppetizer;
+  String? selectedSides;
+  String? selectedDrinks;
+  String? selectedDessert;
 
   @override
   void initState() {
@@ -104,193 +109,121 @@ class _UserLoginState extends State<OrderMenuPage> {
                   ),
                   onTap: () {
                     showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                         context: context,
                         builder: (BuildContext context) {
-                          return SizedBox(
-                              height: 600,
-                              width: double.infinity,
-                              child: Column(children: [
+                          return StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setModalState) {
+                              return ListView(
+                                  children: [
                                 const SizedBox(height: 20),
                                 Column(
                                   children: [
-                                    //add more sides options here
-                                    Row(
-                                      children: [
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'choose Main:',
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(
-                                                  0, 'Angus Beef Burger');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Angus Beef Burger'),
+                                    ExpansionTile(
+                                      title: const Text("Main", style: TextStyle(fontWeight: FontWeight.bold),),
+                                      children:[
+                                        ListTile(
+                                        title: const Text('Angus Beef Burger'),
+                                        trailing: selectedMain == 'Angus Beef Burger' ? const Icon(Icons.check_circle, color: Colors.amber, ) : null,
+                                        onTap: () {
+                                          setModalState(() { selectedMain = 'Angus Beef Burger'; });
+                                          _setOption(0, 'Angus Beef Burger');
+                                              },
                                             ),
-                                          ),
-                                        ),
-                                      ],
+                                      ] 
                                     ),
-                                    Row(
+                                    ExpansionTile(
+                                      title: const Text("Appetizers", style: TextStyle(fontWeight: FontWeight.bold),),
                                       children: [
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'choose Appetizer:',
-                                          style: TextStyle(fontSize: 15),
+                                        ListTile(
+                                          title: const Text('Calamari Rings'),
+                                          trailing: selectedAppetizer == 'Calamari Rings' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedAppetizer = 'Calamari Rings'; });
+                                            _setOption(1, 'Calamari Rings');
+                                          },
                                         ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(1, 'Calamari Rings');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Calamari \nRings'),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(1, 'Oyster fry');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Oyster Fry'),
-                                            ),
-                                          ),
+                                        ListTile(
+                                          title: const Text('Oyster Fry'),
+                                          trailing: selectedAppetizer == 'Oyster Fry' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedAppetizer = 'Oyster Fry'; });
+                                            _setOption(1, 'Oyster Fry');
+                                          },
                                         ),
                                       ],
                                     ),
 
-                                    Row(
+                                    ExpansionTile(
+                                      title: const Text("Sides", style: TextStyle(fontWeight: FontWeight.bold),),
                                       children: [
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'choose sides:',
-                                          style: TextStyle(fontSize: 15),
+                                        ListTile(
+                                          title: const Text('Fries'),
+                                          trailing: selectedSides == 'fries' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedSides = 'fries'; });
+                                            _setOption(2, 'fries');
+                                          },
                                         ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(2, 'fries');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('fries'),
-                                            ),
-                                          ),
+                                        ListTile(
+                                          title: const Text('Salad'),
+                                          trailing: selectedSides == 'salad' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedSides = 'salad'; });
+                                            _setOption(2, 'salad');
+                                          },
                                         ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(2, 'salad');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('salad'),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(2, 'Onion Rings');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Onion Rings'),
-                                            ),
-                                          ),
+                                        ListTile(
+                                          title: const Text('Onion Rings'),
+                                          trailing: selectedSides == 'Onion Rings' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedSides = 'Onion Rings'; });
+                                            _setOption(2, 'Onion Rings');
+                                          },
                                         ),
                                       ],
                                     ),
 
-                                    Row(
+                                    ExpansionTile(
+                                      title: const Text("Drinks", style: TextStyle(fontWeight: FontWeight.bold),),
                                       children: [
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'choose drink:',
-                                          style: TextStyle(fontSize: 15),
+                                        ListTile(
+                                          title: const Text('Ginger Ale'),
+                                          trailing: selectedDrinks == 'Ginger Ale' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedDrinks = 'Ginger Ale'; });
+                                            _setOption(3, 'Ginger Ale');
+                                          },
                                         ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(3, 'Ginger Ale');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Ginger Ale'),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(3, 'Fizzy Peach');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Fizzy Peach'),
-                                            ),
-                                          ),
+                                        ListTile(
+                                          title: const Text('Fizzy Peach'),
+                                          trailing: selectedDrinks == 'Fizzy Peach' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedDrinks = 'Fizzy Peach'; });
+                                            _setOption(3, 'Fizzy Peach');
+                                          },
                                         ),
                                       ],
                                     ),
 
-                                    Row(
+                                    ExpansionTile(
+                                      title: const Text("Desserts", style: TextStyle(fontWeight: FontWeight.bold),),
                                       children: [
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'choose dessert:',
-                                          style: TextStyle(fontSize: 15),
+                                        ListTile(
+                                          title: const Text('Pudding'),
+                                          trailing: selectedDessert == 'Pudding' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedDessert = 'Pudding'; });
+                                            _setOption(4, 'Pudding');
+                                          },
                                         ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(4, 'Pudding');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Pudding'),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Card(
-                                          color: Colors.orangeAccent,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              _setOption(
-                                                  4, 'Vanilla ice cream');
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(12),
-                                              child: Text('Vanilla ice cream'),
-                                            ),
-                                          ),
+                                        ListTile(
+                                          title: const Text('Vanilla ice cream'),
+                                          trailing: selectedDessert == 'Vanilla ice cream' ? const Icon(Icons.check_circle, color: Colors.amber) : null,
+                                          onTap: () {
+                                            setModalState(() { selectedDessert = 'Vanilla ice cream'; });
+                                            _setOption(4, 'Vanilla ice cream');
+                                          },
                                         ),
                                       ],
                                     ),
@@ -325,10 +258,10 @@ class _UserLoginState extends State<OrderMenuPage> {
                                         );
                                       }
                                     })
-                              ]));
+                              ]);
                         });
-                  }),
-            ],
+                  });
+  })],
           ),
           //Appetizers
           ExpansionTile(
