@@ -49,7 +49,7 @@ class _InputTableState extends State<InputTable> {
                   });
                 } else {
                   warningMessage = "";
-                  OrderingService.addTable(_tableNumber.text);
+                  OrderingService.setTable(_tableNumber.text);
                   Navigator.pushNamed(context, "/ordermenu", arguments: _tableNumber.text);
                 }
               },

@@ -56,17 +56,23 @@ class _StartupPageState extends State<StartupPage> {
             Positioned(
               left: 10,
               right: 10,
-              bottom: 10,
-              child: ElevatedButton(
-                onPressed: () {
+              bottom: 20,
+              child: GestureDetector(
+                onTap: () {
                   Navigator.of(context).pushReplacementNamed('/mainpage');
                 },
-                child: const Text("Continue",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                child: const SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: Card(
+                    color: Colors.orangeAccent,
+                    child: Center(
+                      child: Text(
+                        "Continue", style: TextStyle(fontSize: 18),
+                      )
+                    )
                   )
-                ),
+                )
               ),
             ),
           ],

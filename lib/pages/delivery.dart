@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'location/locationservice.dart';
 
 class Delivery extends StatefulWidget {
@@ -16,24 +17,47 @@ class _DeliveryState extends State<Delivery> {
   String _locationMessage = "Address location not set";
   String unitNumber = "";
 
+  @override
+  void dispose() {
+    _unitNum.dispose();
+    super.dispose();
+  }
   
   Future<void> _updateLocation() async {
+    // Safety check: only signed-in users are allowed to request location permission.
+    // Don't allow location access unless the user is signed in.
+    if (FirebaseAuth.instance.currentUser == null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please sign in to use delivery location."),
+          backgroundColor: Colors.lightBlue,
+        ),
+      );
+      Navigator.pushNamed(context, "/userlogin");
+      return;
+    }
+
     setState(() => _isLoading = true);
 
     try {
+      // This asks for location permission and gets the current GPS position.
       Position position = await determinePosition();
       List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
 
       setState((){
+        // Convert GPS coordinates into a readable address.
         _locationMessage = "Address: \nBlock ${placemark[0].street}, \n${placemark[0].country}, \n${placemark[0].postalCode}, \n";
       });
 
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("location updated"))
       );
 
     } catch(e){
       //handle errors
+      if (!mounted) return;
       showDialog(
         context: context, 
         builder: (context) {
@@ -50,7 +74,9 @@ class _DeliveryState extends State<Delivery> {
         }
       );
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -61,69 +87,106 @@ class _DeliveryState extends State<Delivery> {
         backgroundColor: Colors.white,
         toolbarHeight: 30,
       ),
-      body: ListView(
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 20),
+      body: StreamBuilder<User?>(
+        // We listen to auth changes so this page updates immediately after login/logout.
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          final user = snapshot.data;
 
-              const Icon(Icons.location_on, size: 50, color: Colors.red),
-
-              const SizedBox(height: 20),
-
-              Text(_locationMessage, style: const TextStyle(fontSize: 16)),
-              Text(unitNumber, style: const TextStyle(fontSize: 16)),
-
-              const SizedBox(height: 20),
-
-              if(_isLoading)
-                const CircularProgressIndicator()
-              else
-                ElevatedButton.icon(
-                  onPressed: _updateLocation,
-                  icon: const Icon(Icons.my_location),
-                  label: const Text("Use current location"),
+          if (user == null) {
+            // Simple "auth gate" UI for delivery.
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.delivery_dining, size: 64, color: Colors.red),
+                    const SizedBox(height: 16),
+                    const Text(
+                      "Sign in to use delivery",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "We need you to be logged in before using location services for delivery.",
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        // Send user to the login / create account screen.
+                        onPressed: () => Navigator.pushNamed(context, "/userlogin"),
+                        child: const Text("Sign in / Create account"),
+                      ),
+                    ),
+                  ],
                 ),
-              
-              const SizedBox(height:20),
-              
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: _unitNum,
-                  decoration: const InputDecoration(
-                    labelText: "Unit number",
-                    border: OutlineInputBorder(),
+              ),
+            );
+          }
+
+          return ListView(
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+
+                  const Icon(Icons.location_on, size: 50, color: Colors.red),
+
+                  const SizedBox(height: 20),
+
+                  Text(_locationMessage, style: const TextStyle(fontSize: 16)),
+                  Text(unitNumber, style: const TextStyle(fontSize: 16)),
+
+                  const SizedBox(height: 20),
+
+                  if (_isLoading)
+                    const CircularProgressIndicator()
+                  else
+                    ElevatedButton.icon(
+                      onPressed: _updateLocation,
+                      icon: const Icon(Icons.my_location),
+                      label: const Text("Use current location"),
+                    ),
+
+                  const SizedBox(height: 20),
+
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: _unitNum,
+                      decoration: const InputDecoration(
+                        labelText: "Unit number",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
                   ),
 
-                  onChanged: (value){
-                    
-                  },
-                ),
-              ),
-              
-              FilledButton(
-                onPressed: () {
-                  if(_unitNum.text.trim().isEmpty){
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("unit number must not be empty"),
-                        backgroundColor: Colors.lightBlue,
-                      )
-                    );
-                  }
-                  else{
-                    setState(() => unitNumber = "Unit Number: ${_unitNum.text.toString()} \n");
-                  }
-                },
-                child: const Text("Set unit number")
-              ),
-
-              
+                  FilledButton(
+                    onPressed: () {
+                      if (_unitNum.text.trim().isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("unit number must not be empty"),
+                            backgroundColor: Colors.lightBlue,
+                          ),
+                        );
+                      } else {
+                        setState(() =>
+                            unitNumber = "Unit Number: ${_unitNum.text.toString()} \n");
+                      }
+                    },
+                    child: const Text("Set unit number"),
+                  ),
+                ],
+              )
             ],
-          )
-        ]
-      )
+          );
+        },
+      ),
     );
   }
 }

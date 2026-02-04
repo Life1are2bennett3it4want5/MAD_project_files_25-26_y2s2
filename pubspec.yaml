@@ -39,6 +39,11 @@ dependencies:
   geocoding: ^4.0.0
   google_fonts: ^6.1.0
   google_maps_flutter: ^2.14.0
+  badges: ^2.0.2
+
+  firebase_core: ^4.4.0
+  firebase_auth: ^6.1.4
+  cloud_firestore: ^6.1.2
 
 dev_dependencies:
   flutter_test:
