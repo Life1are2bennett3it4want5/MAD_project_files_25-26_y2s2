@@ -36,6 +36,15 @@ class Order {
   }
 }
 
+class delivery{
+  String? addressText;
+  double? latitude;
+  double? longitude;
+  String? unitNumber;
+
+  delivery(this.addressText, {this.latitude, this.longitude, this.unitNumber});
+}
+
 class OrderingService {
   //detect the tapped order
   static String tappedMain = "";
@@ -174,8 +183,61 @@ class OrderingService {
   static void deleteOrder(int index) {
     z.removeAt(index);
   }
+}
 
-  static void deleteOrderByObject(Order order) {
+class DeliveryService {
+  static List<delivery> x = [];
 
+  // The current delivery location the user selected.
+  static delivery? current;
+
+  static bool get hasLocation =>
+      (current?.addressText ?? '').toString().trim().isNotEmpty;
+
+  static void setCurrentLocation({
+    required String addressText,
+    double? latitude,
+    double? longitude,
+  }) {
+    current = delivery(
+      addressText,
+      latitude: latitude,
+      longitude: longitude,
+      unitNumber: current?.unitNumber,
+    );
+    if (x.isEmpty) {
+      x.add(current!);
+    } else {
+      x[0] = current!;
+    }
+  }
+
+  static void setUnitNumber(String unitNumber) {
+    if (current == null) return;
+    current = delivery(
+      current!.addressText,
+      latitude: current!.latitude,
+      longitude: current!.longitude,
+      unitNumber: unitNumber,
+    );
+    if (x.isEmpty) {
+      x.add(current!);
+    } else {
+      x[0] = current!;
+    }
+  }
+
+  static delivery? get currentLocation => current;
+
+  static void addLocation(location) {
+    x.add(delivery(location));
+  }
+
+  static void deleteLocation(int index) {
+    x.removeAt(index);
+  }
+
+  static delivery getLocationAt(int index) {
+    return(x[index]);
   }
 }

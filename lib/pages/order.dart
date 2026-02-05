@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'nav_index.dart';
+import 'servicefile.dart';
 
 class Order extends StatefulWidget {
   const Order({super.key});
@@ -76,8 +78,21 @@ class _OrderState extends State<Order> {
                     height: 85,
                     width: 375,
                     child: GestureDetector(
-                      onTap: () => {
-              
+                      onTap: () {
+                        // If the user has not set a delivery location yet, send them to the Delivery tab first.
+                        if (!DeliveryService.hasLocation) {
+                          navIndex.value = 2; // Delivery tab
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Set your delivery location first."),
+                              backgroundColor: Colors.lightBlue,
+                            ),
+                          );
+                          return;
+                        }
+
+                        // Delivery location exists, so we can show the delivery map/restaurant selection page.
+                        Navigator.pushNamed(context, '/deliverymap');
                       },
                       child: const Card(
                         child: Center(

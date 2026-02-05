@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'orderingservice.dart';
+import 'servicefile.dart';
+import 'nav_index.dart';
 
 class OrderSummaryPage extends StatefulWidget {
   const OrderSummaryPage({super.key});
@@ -19,6 +20,22 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
         title: const Text('Order Summary'),
         backgroundColor: Colors.red,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            tooltip: "View Bill",
+            icon: const Icon(Icons.receipt_long_outlined),
+            onPressed: () {
+              // Switch the bottom navigation to the Bill tab, then go back to the main page
+              // (where the bottom navigation bar exists).
+              navIndex.value = 4;
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/mainpage",
+                (r) => false,
+              );
+            },
+          ),
+        ]
       ),
       body: cartOrders.length == 0
           ? const Center(

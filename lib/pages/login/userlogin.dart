@@ -79,7 +79,8 @@ class _UserLoginState extends State<UserLogin> {
         'wrong-password' => 'Wrong password.',
         'email-already-in-use' => 'Email is already in use.',
         'weak-password' => 'Password is too weak (try 6+ characters).',
-        _ => e.message ?? 'Authentication error.'
+        'invalid-credential' => 'Password or Email is incorrect. Try again.',
+        _ => e.message ?? 'password and try again'
       };
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/pages/deliverymappage.dart';
 import 'package:project/startuppage.dart';
 import 'nav.dart';
 import 'theme.dart';
@@ -31,6 +32,7 @@ void main() async{
         "/stafflogin": (context) => const StaffLogin(),
         "/ordersummaries": (context) => const OrderSummaries(),
         "/location": (context) => const MapPage(),
+        "/deliverymap": (context) => const DeliveryMapPage(),
         "/tablenumber": (context) => const InputTable(),
         "/userlogin": (context) => const UserLogin(),
         "/ordersummaryuser": (context) => const OrderSummaryPage(),
