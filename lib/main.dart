@@ -3,7 +3,6 @@ import 'package:project/pages/deliverymappage.dart';
 import 'package:project/startuppage.dart';
 import 'nav.dart';
 import 'theme.dart';
-import 'pages/orderdetails.dart';
 import 'pages/ordermenu.dart';
 import 'pages/login/stafflogin.dart';
 import 'pages/ordersummarystaff.dart';
@@ -27,7 +26,6 @@ void main() async{
       theme: primaryTheme,
       routes: {
         "/mainpage": (context) => const LoginPage(),
-        "/orderdetails": (context) => const OrderDetails(),
         "/ordermenu": (context)=> const OrderMenuPage(),
         "/stafflogin": (context) => const StaffLogin(),
         "/ordersummaries": (context) => const OrderSummaries(),

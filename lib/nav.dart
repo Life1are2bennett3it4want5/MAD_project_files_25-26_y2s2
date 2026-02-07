@@ -24,10 +24,17 @@ class _LoginPageState extends State<LoginPage> {
   
   @override
   Widget build(BuildContext context) {
+    //Since I want to use a persistent bottom navigation bar
+    //for each destination I click, it changes the value of a ValueNotifier, defined in nav_index.dart
+    //ValueListenableBuilder checks that value and updates the UI accordingly
     return ValueListenableBuilder<int>(
       valueListenable: navIndex,
+      //since no child parameter is defined, we need to pass _ as a parameter within builder callback
+      //This tells the ValueListenableBuilder that there is no child widget.
+      //index parameter in builder gets the current value of navIndex
       builder: (context, index, _) {
         return Scaffold(
+          //indexed stack widget to let the user swap between the navigation destinations in NavigationBar
           body: IndexedStack(
             index: index,
             children: _pages,
@@ -52,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
               backgroundColor: const Color.fromRGBO(255, 192, 0, 1),
               height: 80,
+              //when a NavigationDestination is tapped, flutter passes the index of the destinations list into the callback parameter
               onDestinationSelected: (int newIndex) {
                 navIndex.value = newIndex;
               },

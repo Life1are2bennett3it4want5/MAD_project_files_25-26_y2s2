@@ -17,27 +17,26 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Summary'),
-        backgroundColor: Colors.red,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            tooltip: "View Bill",
-            icon: const Icon(Icons.receipt_long_outlined),
-            onPressed: () {
-              // Switch the bottom navigation to the Bill tab, then go back to the main page
-              // (where the bottom navigation bar exists).
-              navIndex.value = 4;
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                "/mainpage",
-                (r) => false,
-              );
-            },
-          ),
-        ]
-      ),
-      body: cartOrders.length == 0
+          title: const Text('Order Summary'),
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+          actions: [
+            IconButton(
+              tooltip: "View Bill",
+              icon: const Icon(Icons.receipt_long_outlined),
+              onPressed: () {
+                // Switch the bottom navigation to the Bill tab, then go back to the main page
+                // (where the bottom navigation bar exists).
+                navIndex.value = 4;
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  "/mainpage",
+                  (r) => false,
+                );
+              },
+            ),
+          ]),
+      body: cartOrders.isEmpty
           ? const Center(
               child: Text("your cart is empty", style: TextStyle(fontSize: 18)),
             )
@@ -133,8 +132,10 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                           setState(() {
-                                            final orderToDelete = cartOrders[index];
-                                            OrderingService.z.remove(orderToDelete);
+                                            final orderToDelete =
+                                                cartOrders[index];
+                                            OrderingService.z
+                                                .remove(orderToDelete);
                                           });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(
@@ -207,12 +208,23 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                Navigator.pop(context);
+                                //capture the instances before async operation (push to firebase)
+                                final navigator = Navigator.of(context);
+                                final scaffoldMessenger =
+                                    ScaffoldMessenger.of(context);
+
+                                navigator.pop(); // Close dialog
+
                                 try {
                                   await OrderingService
                                       .pushCurrentCartToFirebase();
+
+                                  // Check if widget is still mounted before calling setState
+                                  if (!mounted) return;
                                   setState(() {});
-                                  ScaffoldMessenger.of(context).showSnackBar(
+
+                                  // Use the captured scaffoldMessenger instead of context
+                                  scaffoldMessenger.showSnackBar(
                                     const SnackBar(
                                       content:
                                           Text('Order placed successfully!'),
@@ -220,7 +232,8 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                                     ),
                                   );
                                 } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
+                                  // Use the captured scaffoldMessenger here too
+                                  scaffoldMessenger.showSnackBar(
                                     SnackBar(
                                       content: Text('Error placing order: $e'),
                                       backgroundColor: Colors.red,

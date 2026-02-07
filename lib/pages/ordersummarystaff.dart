@@ -26,11 +26,11 @@ class _OrderSummariesState extends State<OrderSummaries> {
       appBar: AppBar(
         title: const Text("Orders"),
       ),
-      // Staff view: live list of bills that still need payment/closing.
+      //Listen to event of user placing order to kitchen
+      //This will rebuild for every new event and pass the orders into this page, where ListView.builder will build a new order (ExpansionTile widget)
       body: StreamBuilder<QuerySnapshot>(
-        stream: OrderingService.orderData
-            .where('status', whereIn: ['unpaid', 'payment_requested'])
-            .snapshots(),
+        stream: OrderingService.orderData.where('status',
+            whereIn: ['unpaid', 'payment_requested']).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

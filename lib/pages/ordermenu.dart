@@ -20,6 +20,246 @@ class _UserLoginState extends State<OrderMenuPage> {
   String? selectedDessert;
   String? tableNumber;
 
+  List<ListTile> get mainMenuItems => [
+        //Spaghetti Carbonara
+        ListTile(
+          title: Text("Spagetti Carbonara",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+              "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
+              style: TextStyle(fontSize: 13)),
+          leading: const CircleAvatar(
+              radius: 20,
+              backgroundImage:
+                  AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
+          trailing: const Text("\$18", style: TextStyle(fontSize: 20)),
+          onTap: () {
+            _showOrderModalMain('Spagetti Carbonara');
+          },
+        ),
+        //Angus Beef Burger
+        ListTile(
+          title: Text("Angus Beef Burger",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "150g of Angus Beef, flame-grilled with applewood",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/AngusBeefBurger.jpg'),
+          ),
+          trailing: const Text(
+            "\$15",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalMain('Angus Beef Burger');
+          },
+        ),
+      ];
+
+  List<ListTile> get appetizerMenuItems => [
+        //Calamari Rings
+        ListTile(
+          title: Text("Calamari Rings",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "Deep Fried squid rings coated in a crispy batter",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/CalamariRings.jpeg'),
+          ),
+          trailing: const Text(
+            "\$8",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalAppetizers('Calamari Rings');
+          },
+        ),
+        //Oyster Fry
+        ListTile(
+          title: Text("Oyster Fry",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "Fresh Oysters coated with our signature spice loaded batter",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/OysterFry.jpg'),
+          ),
+          trailing: const Text(
+            "\$10",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalAppetizers('Oyster Fry');
+          },
+        ),
+      ];
+
+  List<ListTile> get sideMenuItems => [
+        //French Fries
+        ListTile(
+          title: Text("French Fries",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "Crispy french fries, made with love",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/FrenchFries.jpg'),
+          ),
+          trailing: const Text(
+            "\$4.50",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalSides('French Fries');
+          },
+        ),
+        //Garden Side Salad
+        ListTile(
+          title: Text("Garden Side Salad",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "Our special salad with a drizzle of secret sauce",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/GardenSideSalad.jpg'),
+          ),
+          trailing: const Text(
+            "\$5.50",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalSides('Garden Side Salad');
+          },
+        ),
+        //Onion Rings
+        ListTile(
+          title: Text("Onion Rings",
+              style: GoogleFonts.publicSans(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+          subtitle: const Text(
+            "Taste the onion, feel the crunch",
+            style: TextStyle(fontSize: 13),
+          ),
+          leading: const CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/menu/OnionRings.webp'),
+          ),
+          trailing: const Text(
+            "\$4.50",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            _showOrderModalSides('Onion Rings');
+          },
+        ),
+      ];
+
+  List<ListTile> get drinkMenuItems => [
+        //Ginger Ale
+        ListTile(
+            title: Text("Ginger Ale",
+                style: GoogleFonts.publicSans(
+                    fontSize: 16, fontWeight: FontWeight.w500)),
+            subtitle: const Text(
+              "Ginger flavoured soda that makes you want second servings",
+              style: TextStyle(fontSize: 13),
+            ),
+            leading: const CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('assets/menu/GingerAle.jpg'),
+            ),
+            trailing: const Text(
+              "\$3.50",
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              _showOrderModalDrinks('Ginger Ale');
+            }),
+        //Fizzy Peach
+        ListTile(
+            title: Text("Fizzy Peach",
+                style: GoogleFonts.publicSans(
+                    fontSize: 16, fontWeight: FontWeight.w500)),
+            subtitle: const Text(
+              "Peach Juice mixed with Soda",
+              style: TextStyle(fontSize: 13),
+            ),
+            leading: const CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('assets/menu/FizzyPeach.webp'),
+            ),
+            trailing: const Text(
+              "\$3.50",
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              _showOrderModalDrinks('Fizzy Peach');
+            }),
+      ];
+
+  List<ListTile> get dessertMenuItems => [
+    //Pudding
+    ListTile(
+      title: Text("Pudding",
+          style: GoogleFonts.publicSans(
+              fontSize: 16, fontWeight: FontWeight.w500)),
+      subtitle: const Text(
+        "Velvety smooth and sweet pudding",
+        style: TextStyle(fontSize: 13),
+      ),
+      leading: const CircleAvatar(
+        radius: 20,
+        backgroundImage: AssetImage('assets/menu/Pudding.avif'),
+      ),
+      trailing: const Text(
+        "\$4",
+        style: TextStyle(fontSize: 20),
+      ),
+      onTap: (){
+        _showOrderModalDessert('Pudding');
+      },
+    ),
+    //Vanilla Ice Cream
+    ListTile(
+      title: Text("Vanilla Ice Cream",
+          style: GoogleFonts.publicSans(
+              fontSize: 16, fontWeight: FontWeight.w500)),
+      subtitle: const Text(
+        "Simple, creamy and timelessly delicious",
+        style: TextStyle(fontSize: 13),
+      ),
+      leading: const CircleAvatar(
+        radius: 20,
+        backgroundImage: AssetImage('assets/menu/VanillaIceCream.jpg'),
+      ),
+      trailing: const Text(
+        "\$3",
+        style: TextStyle(fontSize: 20),
+      ),
+      onTap: (){
+        _showOrderModalDessert('Vanilla Ice Cream');
+      },
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -32,13 +272,13 @@ class _UserLoginState extends State<OrderMenuPage> {
     if (!_argsHandled) {
       final args = ModalRoute.of(context)?.settings.arguments;
       if (args is String && args.isNotEmpty) {
-        _setOption(5, args); // index 5 reserved for table
+        setOption(5, args); // index 5 reserved for table
       }
       _argsHandled = true;
     }
   }
 
-  void _setOption(int idx, String val) {
+  void setOption(int idx, String val) {
     setState(() {
       while (options.length <= idx) {
         options.add('');
@@ -48,7 +288,7 @@ class _UserLoginState extends State<OrderMenuPage> {
     print(options); //debug
   }
 
-  void _resetSelections() {
+  void resetSelections() {
     setState(() {
       selectedMain = null;
       selectedAppetizer = null;
@@ -56,7 +296,7 @@ class _UserLoginState extends State<OrderMenuPage> {
       selectedDrinks = null;
       selectedDessert = null;
 
-      if(options.length >= 6){
+      if (options.length >= 6) {
         options[0] = '';
         options[1] = '';
         options[2] = '';
@@ -100,7 +340,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                               setModalState(() {
                                 selectedMain = mainTitle;
                               });
-                              _setOption(0, mainTitle);
+                              setOption(0, mainTitle);
                             },
                           ),
                         ]),
@@ -120,7 +360,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedAppetizer = 'Calamari Rings';
                             });
-                            _setOption(1, 'Calamari Rings');
+                            setOption(1, 'Calamari Rings');
                           },
                         ),
                         ListTile(
@@ -133,7 +373,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedAppetizer = 'Oyster Fry';
                             });
-                            _setOption(1, 'Oyster Fry');
+                            setOption(1, 'Oyster Fry');
                           },
                         ),
                         ListTile(
@@ -146,7 +386,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedAppetizer = 'None';
                             });
-                            _setOption(1, 'None');
+                            setOption(1, 'None');
                           },
                         ),
                       ],
@@ -167,7 +407,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedSides = 'fries';
                             });
-                            _setOption(2, 'fries');
+                            setOption(2, 'fries');
                           },
                         ),
                         ListTile(
@@ -180,7 +420,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedSides = 'salad';
                             });
-                            _setOption(2, 'salad');
+                            setOption(2, 'salad');
                           },
                         ),
                         ListTile(
@@ -193,7 +433,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedSides = 'Onion Rings';
                             });
-                            _setOption(2, 'Onion Rings');
+                            setOption(2, 'Onion Rings');
                           },
                         ),
                         ListTile(
@@ -206,7 +446,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedSides = 'None';
                             });
-                            _setOption(2, 'None');
+                            setOption(2, 'None');
                           },
                         ),
                       ],
@@ -227,7 +467,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDrinks = 'Ginger Ale';
                             });
-                            _setOption(3, 'Ginger Ale');
+                            setOption(3, 'Ginger Ale');
                           },
                         ),
                         ListTile(
@@ -240,7 +480,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDrinks = 'Fizzy Peach';
                             });
-                            _setOption(3, 'Fizzy Peach');
+                            setOption(3, 'Fizzy Peach');
                           },
                         ),
                         ListTile(
@@ -253,7 +493,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDrinks = 'None';
                             });
-                            _setOption(3, 'None');
+                            setOption(3, 'None');
                           },
                         ),
                       ],
@@ -274,7 +514,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDessert = 'Pudding';
                             });
-                            _setOption(4, 'Pudding');
+                            setOption(4, 'Pudding');
                           },
                         ),
                         ListTile(
@@ -287,7 +527,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDessert = 'Vanilla ice cream';
                             });
-                            _setOption(4, 'Vanilla ice cream');
+                            setOption(4, 'Vanilla ice cream');
                           },
                         ),
                         ListTile(
@@ -300,7 +540,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                             setModalState(() {
                               selectedDessert = 'None';
                             });
-                            _setOption(4, 'None');
+                            setOption(4, 'None');
                           },
                         ),
                       ],
@@ -313,7 +553,12 @@ class _UserLoginState extends State<OrderMenuPage> {
                 FilledButton(
                     child: const Text("add order"),
                     onPressed: () {
-                      if (options[0].isEmpty || options[1].isEmpty || options[2].isEmpty || options[3].isEmpty || options[4].isEmpty || options[5].isEmpty) {
+                      if (options[0].isEmpty ||
+                          options[1].isEmpty ||
+                          options[2].isEmpty ||
+                          options[3].isEmpty ||
+                          options[4].isEmpty ||
+                          options[5].isEmpty) {
                         setModalState(() {
                           selectAllOptionsText =
                               "Please complete all selections!";
@@ -335,7 +580,283 @@ class _UserLoginState extends State<OrderMenuPage> {
               ]),
             );
           });
-        }).whenComplete(_resetSelections);
+        }).whenComplete(resetSelections);
+  }
+
+  void _showOrderModalAppetizers(String mainTitle) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          String selectAllOptionsText = '';
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: ListView(children: [
+                const SizedBox(height: 20),
+                Column(
+                  children: [
+                    ExpansionTile(
+                      title: const Text(
+                        "Appetizers",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      children: [
+                        ListTile(
+                          title: Text(mainTitle),
+                          trailing: selectedAppetizer == mainTitle
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.amber)
+                              : null,
+                          onTap: () {
+                            setModalState(() {
+                              selectedAppetizer = mainTitle;
+                            });
+                            setOption(1, mainTitle);
+                          },
+                        ),
+                      ],
+                    ),
+                    Text(selectAllOptionsText,
+                        style: const TextStyle(color: Colors.red))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                FilledButton(
+                    child: const Text("add order"),
+                    onPressed: () {
+                      if (options[1].isEmpty) {
+                        setModalState(() {
+                          selectAllOptionsText =
+                              "Please complete all selections!";
+                        });
+                      } else {
+                        OrderingService.addOrder(
+                          table: options[5],
+                          main: 'none',
+                          appetizers: options[1],
+                          sides: 'none',
+                          drinks: 'none',
+                          dessert: 'none',
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Order added')));
+                        Navigator.pop(context);
+                      }
+                    }),
+              ]),
+            );
+          });
+        }).whenComplete(resetSelections);
+  }
+
+  void _showOrderModalSides(String mainTitle) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          String selectAllOptionsText = '';
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: ListView(children: [
+                const SizedBox(height: 20),
+                Column(
+                  children: [
+                    ExpansionTile(
+                      title: const Text(
+                        "Sides",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      children: [
+                        ListTile(
+                          title: Text(mainTitle),
+                          trailing: selectedSides == mainTitle
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.amber)
+                              : null,
+                          onTap: () {
+                            setModalState(() {
+                              selectedSides = mainTitle;
+                            });
+                            setOption(2, mainTitle);
+                          },
+                        ),
+                      ],
+                    ),
+                    Text(selectAllOptionsText,
+                        style: const TextStyle(color: Colors.red))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                FilledButton(
+                    child: const Text("add order"),
+                    onPressed: () {
+                      if (options[2].isEmpty) {
+                        setModalState(() {
+                          selectAllOptionsText =
+                              "Please complete all selections!";
+                        });
+                      } else {
+                        OrderingService.addOrder(
+                          table: options[5],
+                          main: 'none',
+                          appetizers: 'none',
+                          sides: options[2],
+                          drinks: 'none',
+                          dessert: 'none',
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Order added')));
+                        Navigator.pop(context);
+                      }
+                    }),
+              ]),
+            );
+          });
+        }).whenComplete(resetSelections);
+  }
+
+  void _showOrderModalDrinks(String mainTitle) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          String selectAllOptionsText = '';
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: ListView(children: [
+                const SizedBox(height: 20),
+                Column(
+                  children: [
+                    ExpansionTile(
+                      title: const Text(
+                        "Drinks",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      children: [
+                        ListTile(
+                          title: Text(mainTitle),
+                          trailing: selectedDrinks == mainTitle
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.amber)
+                              : null,
+                          onTap: () {
+                            setModalState(() {
+                              selectedDrinks = mainTitle;
+                            });
+                            setOption(3, mainTitle);
+                          },
+                        ),
+                      ],
+                    ),
+                    Text(selectAllOptionsText,
+                        style: const TextStyle(color: Colors.red))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                FilledButton(
+                    child: const Text("add order"),
+                    onPressed: () {
+                      if (options[3].isEmpty) {
+                        setModalState(() {
+                          selectAllOptionsText =
+                              "Please complete all selections!";
+                        });
+                      } else {
+                        OrderingService.addOrder(
+                          table: options[5],
+                          main: 'none',
+                          appetizers: 'none',
+                          sides: 'none',
+                          drinks: options[3],
+                          dessert: 'none',
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Order added')));
+                        Navigator.pop(context);
+                      }
+                    }),
+              ]),
+            );
+          });
+        }).whenComplete(resetSelections);
+  }
+
+  void _showOrderModalDessert(String mainTitle) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          String selectAllOptionsText = '';
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: ListView(children: [
+                const SizedBox(height: 20),
+                Column(
+                  children: [
+                    ExpansionTile(
+                      title: const Text(
+                        "Dessert",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      children: [
+                        ListTile(
+                          title: Text(mainTitle),
+                          trailing: selectedDessert == mainTitle
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.amber)
+                              : null,
+                          onTap: () {
+                            setModalState(() {
+                              selectedDessert = mainTitle;
+                            });
+                            setOption(4, mainTitle);
+                          },
+                        ),
+                      ],
+                    ),
+                    Text(selectAllOptionsText,
+                        style: const TextStyle(color: Colors.red))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                FilledButton(
+                    child: const Text("add order"),
+                    onPressed: () {
+                      if (options[4].isEmpty) {
+                        setModalState(() {
+                          selectAllOptionsText =
+                              "Please complete all selections!";
+                        });
+                      } else {
+                        OrderingService.addOrder(
+                          table: options[5],
+                          main: 'none',
+                          appetizers: 'none',
+                          sides: 'none',
+                          drinks: 'none',
+                          dessert: options[4],
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Order added')));
+                        Navigator.pop(context);
+                      }
+                    }),
+              ]),
+            );
+          });
+        }).whenComplete(resetSelections);
   }
 
   @override
@@ -358,48 +879,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   )),
-              children: [
-                //Spaghetti Carbonara
-                ListTile(
-                  title: Text("Spagetti Carbonara",
-                      style: GoogleFonts.publicSans(
-                          fontSize: 16, fontWeight: FontWeight.w500)),
-                  subtitle: const Text(
-                      "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-                      style: TextStyle(fontSize: 13)),
-                  leading: const CircleAvatar(
-                      radius: 20,
-                      backgroundImage:
-                          AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-                  trailing: const Text("\$20", style: TextStyle(fontSize: 20)),
-                  onTap: () {
-                    _showOrderModalMain('Spagetti Carbonara');
-                  },
-                ),
-
-                //Angus Beef Burger
-                ListTile(
-                  title: Text("Angus Beef Burger",
-                      style: GoogleFonts.publicSans(
-                          fontSize: 16, fontWeight: FontWeight.w500)),
-                  subtitle: const Text(
-                    "150g of Angus Beef, flame-grilled with applewood",
-                    style: TextStyle(fontSize: 13),
-                  ),
-                  leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        AssetImage('assets/menu/AngusBeefBurger.jpg'),
-                  ),
-                  trailing: const Text(
-                    "\$18",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onTap: () {
-                    _showOrderModalMain('Angus Beef Burger');
-                  },
-                ),
-              ]),
+              children: mainMenuItems),
           //Appetizers
           ExpansionTile(
             backgroundColor: Colors.lightBlueAccent,
@@ -411,31 +891,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 )),
-            children: [
-              ListTile(
-                title: Text("Spagetti Carbonara",
-                    style: GoogleFonts.publicSans(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
-                subtitle: const Text(
-                    "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-                    style: TextStyle(fontSize: 13)),
-                leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-                trailing: const Text("\$20", style: TextStyle(fontSize: 20)),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 600,
-                        );
-                      });
-                },
-              ),
-              const ListTile(title: Text("Angus Beef Burger"))
-            ],
+            children: appetizerMenuItems,
           ),
           //Sides
           ExpansionTile(
@@ -448,31 +904,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 )),
-            children: [
-              ListTile(
-                title: Text("Spagetti Carbonara",
-                    style: GoogleFonts.publicSans(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
-                subtitle: const Text(
-                    "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-                    style: TextStyle(fontSize: 13)),
-                leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-                trailing: const Text("\$20", style: TextStyle(fontSize: 20)),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 600,
-                        );
-                      });
-                },
-              ),
-              const ListTile(title: Text("Angus Beef Burger"))
-            ],
+            children: sideMenuItems,
           ),
           //Drinks
           ExpansionTile(
@@ -485,31 +917,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 )),
-            children: [
-              ListTile(
-                title: Text("Spagetti Carbonara",
-                    style: GoogleFonts.publicSans(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
-                subtitle: const Text(
-                    "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-                    style: TextStyle(fontSize: 13)),
-                leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-                trailing: const Text("\$20", style: TextStyle(fontSize: 20)),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 600,
-                        );
-                      });
-                },
-              ),
-              const ListTile(title: Text("Angus Beef Burger"))
-            ],
+            children: drinkMenuItems,
           ),
           //Desserts
           ExpansionTile(
@@ -522,31 +930,7 @@ class _UserLoginState extends State<OrderMenuPage> {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 )),
-            children: [
-              ListTile(
-                title: Text("Spagetti Carbonara",
-                    style: GoogleFonts.publicSans(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
-                subtitle: const Text(
-                    "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-                    style: TextStyle(fontSize: 13)),
-                leading: const CircleAvatar(
-                    radius: 20,
-                    backgroundImage:
-                        AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-                trailing: const Text("\$20", style: TextStyle(fontSize: 20)),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 600,
-                        );
-                      });
-                },
-              ),
-              const ListTile(title: Text("Angus Beef Burger"))
-            ],
+            children: dessertMenuItems,
           ),
         ]),
         floatingActionButton: FittedBox(
@@ -559,7 +943,8 @@ class _UserLoginState extends State<OrderMenuPage> {
           Container(
             padding: const EdgeInsets.all(8),
             constraints: const BoxConstraints(minHeight: 32, minWidth: 32),
-            decoration: OrderingService.getCount != 0 ?BoxDecoration(
+            decoration: OrderingService.getCount != 0
+                ? BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                           spreadRadius: 1,
@@ -568,7 +953,8 @@ class _UserLoginState extends State<OrderMenuPage> {
                     ],
                     borderRadius: BorderRadius.circular(16),
                     color: Colors.red,
-                  ) : null,
+                  )
+                : null,
             child: Center(
                 child: Text('${OrderingService.getCount()}',
                     style: const TextStyle(color: Colors.white))),

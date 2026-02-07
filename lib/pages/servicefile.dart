@@ -36,7 +36,7 @@ class Order {
   }
 }
 
-class delivery{
+class delivery {
   String? addressText;
   double? latitude;
   double? longitude;
@@ -54,35 +54,38 @@ class OrderingService {
   static String tappedDessert = "";
   static String tappedTable = "";
 
-  // In-memory "cart" (orders the user is building right now).
+  //store orders in this list
   static List<Order> z = [];
 
   // Old/local-only archived orders (kept for your staff page before Firestore streaming).
   // Note: staff view now streams Firestore instead, but this is left as-is.
   static Map<String, List<Order>> orders = {};
   static int orderBatchCounter = 1;
+  static String currentTable = '';
 
   // Old notifier used to refresh bill UI when "z" changed.
   static ValueNotifier<int> notifyBill = ValueNotifier(0);
+
   // Stores the Firestore document id for the "current active bill" (so BillPage can listen to it).
   static ValueNotifier<String?> activeBillBatchId = ValueNotifier(null);
-  static String currentTable = '';
 
+  //Define the collection name in firebase to send to
   static CollectionReference orderData =
       FirebaseFirestore.instance.collection("orderDetails");
-  
+
+  //Define menu prices
   static Map<String, double> menuPrices = {
-    "Spagetti Carbonara": 20.0,
-    "Angus Beef Burger": 18.0,
+    "Spagetti Carbonara": 18.0,
+    "Angus Beef Burger": 15.0,
     "Calamari Rings": 8.0,
-    "Oyster Fry": 9.0,
-    "Fries": 5.0,
-    "Salad": 4.0,
-    "Onion Rings": 6.0,
-    "Ginger Ale": 3.0,
-    "Fizzy Peach": 3.5,
-    "Pudding": 7.0,
-    "Vanilla ice cream": 6.0,
+    "Oyster Fry": 10.0,
+    "Fries": 4.50,
+    "Garden Side Salad": 5.50,
+    "Onion Rings": 4.50,
+    "Ginger Ale": 3.50,
+    "Fizzy Peach": 3.50,
+    "Pudding": 4.00,
+    "Vanilla Ice Cream": 3.00,
     "None": 0.0,
   };
 
@@ -118,8 +121,8 @@ class OrderingService {
     await orderData.doc(batchId).set({
       'batchId': batchId,
       'table': table,
-      // Bill "lifecycle" state:
       // unpaid -> payment_requested -> paid (staff sets paid after customer payment)
+      // paid status can be done automatically if this were a real restaurant ordering app
       'status': 'unpaid',
       'paymentRequestedAt': null,
       'paidAt': null,
@@ -127,7 +130,7 @@ class OrderingService {
       'timestamp': FieldValue.serverTimestamp(),
     });
 
-    // BillPage will use this id to stream the bill in real-time.
+    // BillPage will use this id to show the bill in real-time
     activeBillBatchId.value = batchId;
 
     // After checkout, we clear the cart so the user can start a new order.
@@ -161,12 +164,13 @@ class OrderingService {
     return (z[index]);
   }
 
-  static void archiveCurrentCart(){
-    //snapshot the orders in map index
+  static void archiveCurrentCart() {
+    //snapshot the orders into the map
     orders[orderBatchCounter.toString()] = [...z];
     orderBatchCounter++;
     z.clear();
   }
+
   static void updateOrderByMainDish(String mainDish, String newAppetizers,
       String newSides, String newDrinks, String newDessert, String newTable) {
     for (int i = 0; i < z.length; i++) {
@@ -188,12 +192,13 @@ class OrderingService {
 class DeliveryService {
   static List<delivery> x = [];
 
-  // The current delivery location the user selected.
+  // The current delivery location that user select
   static delivery? current;
 
   static bool get hasLocation =>
       (current?.addressText ?? '').toString().trim().isNotEmpty;
 
+  //this is to pass current location into delivery menu
   static void setCurrentLocation({
     required String addressText,
     double? latitude,
@@ -212,6 +217,7 @@ class DeliveryService {
     }
   }
 
+  //This is used to pass unit number into the delivery menu
   static void setUnitNumber(String unitNumber) {
     if (current == null) return;
     current = delivery(
@@ -238,6 +244,6 @@ class DeliveryService {
   }
 
   static delivery getLocationAt(int index) {
-    return(x[index]);
+    return (x[index]);
   }
 }

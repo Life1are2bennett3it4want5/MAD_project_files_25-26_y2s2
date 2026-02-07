@@ -79,8 +79,18 @@ flutter:
     - assets/img/Main.png
     - assets/img/StartupImg.jpeg
 
+    # images for menu items 
     - assets/menu/Spaghetti-Carbonara.webp
     - assets/menu/AngusBeefBurger.jpg
+    - assets/menu/CalamariRings.jpeg
+    - assets/menu/OysterFry.jpg
+    - assets/menu/FrenchFries.jpg
+    - assets/menu/GardenSideSalad.jpg
+    - assets/menu/OnionRings.webp
+    - assets/menu/GingerAle.jpg
+    - assets/menu/FizzyPeach.webp
+    - assets/menu/Pudding.avif
+    - assets/menu/VanillaIceCream.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
