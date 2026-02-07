@@ -72,16 +72,17 @@ class _UserLoginState extends State<UserLogin> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
-      // Show a simple message for common Firebase Auth errors.
+      
       final message = switch (e.code) {
         'invalid-email' => 'Invalid email format.',
         'user-not-found' => 'No account found for this email.',
         'wrong-password' => 'Wrong password.',
-        'email-already-in-use' => 'Email is already in use.',
-        'weak-password' => 'Password is too weak (try 6+ characters).',
-        'invalid-credential' => 'Password or Email is incorrect. Try again.',
-        _ => e.message ?? 'password and try again'
+        'invalid-credential' => 'Email or password is incorrect.',
+        'INVALID_LOGIN_CREDENTIALS' => 'Email or password is incorrect.',
+        'operation-not-allowed' => 'Email/password sign-in is not enabled.',
+        _ => e.message ?? 'Login failed. Try again.',
       };
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
         backgroundColor: Colors.lightBlue,
@@ -117,7 +118,8 @@ class _UserLoginState extends State<UserLogin> {
 
               Text(
                 _isLogin ? "Sign in" : "Create account",
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 24),
