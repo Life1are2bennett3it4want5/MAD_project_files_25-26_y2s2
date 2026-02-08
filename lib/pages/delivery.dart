@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'location/locationservice.dart';
-import 'servicefile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Delivery extends StatefulWidget {
   const Delivery({super.key});
@@ -53,13 +53,6 @@ class _DeliveryState extends State<Delivery> {
             "Address: \nBlock ${placemark[0].street}, \n${placemark[0].country}, \n${placemark[0].postalCode}, \n";
       });
 
-      // Save the selected delivery location so other pages (e.g., DeliveryMapPage / Order page) can read it.
-      DeliveryService.setCurrentLocation(
-        addressText: _locationMessage,
-        latitude: position.latitude,
-        longitude: position.longitude,
-      );
-
       if (!mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("location updated")));
@@ -89,9 +82,13 @@ class _DeliveryState extends State<Delivery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(172, 90, 63, 32),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 30,
+        toolbarHeight: 80,
+        automaticallyImplyLeading: false,
+        flexibleSpace: _buildHeaderBanner(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: StreamBuilder<User?>(
         // We listen to auth changes so this page updates immediately after login/logout.
@@ -145,7 +142,9 @@ class _DeliveryState extends State<Delivery> {
                   const Icon(Icons.location_on, size: 50, color: Colors.red),
                   const SizedBox(height: 20),
                   Text(_locationMessage, style: const TextStyle(fontSize: 16)),
-                  Text(unitNumber, style: const TextStyle(fontSize: 16)),
+                  Text(unitNumber,
+                      style:
+                          const TextStyle(fontSize: 16, color: Colors.white)),
                   const SizedBox(height: 20),
                   if (_isLoading)
                     const CircularProgressIndicator()
@@ -160,24 +159,10 @@ class _DeliveryState extends State<Delivery> {
                     padding: const EdgeInsets.all(10),
                     child: TextField(
                       controller: _unitNum,
-                      decoration: InputDecoration(
-                        hintText: "Unit number",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(
-                              color: Colors.grey.shade300, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(
-                              color: Colors.grey.shade500, width: 1.5),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 20.0),
+                      decoration: const InputDecoration(
+                        labelStyle: const TextStyle(color: Colors.black),
+                        labelText: "Unit number",
+                        border: OutlineInputBorder(),
                       ),
                     ),
                   ),
@@ -193,12 +178,10 @@ class _DeliveryState extends State<Delivery> {
                       } else {
                         setState(() => unitNumber =
                             "Unit Number: ${_unitNum.text.toString()} \n");
-                        DeliveryService.setUnitNumber(_unitNum.text.trim());
                       }
                     },
                     child: const Text("Set unit number"),
                   ),
-                  const SizedBox(height: 20),
                 ],
               )
             ],
@@ -207,4 +190,41 @@ class _DeliveryState extends State<Delivery> {
       ),
     );
   }
+}
+
+Widget _buildHeaderBanner() {
+  return Container(
+    height: 120,
+    margin: const EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(255, 149, 0, 0.7),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(24),
+        bottomRight: Radius.circular(24),
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Center(
+            child: Text(
+              "Delivery",
+              style: GoogleFonts.notoSans(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

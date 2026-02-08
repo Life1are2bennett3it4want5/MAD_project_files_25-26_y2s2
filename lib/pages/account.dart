@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -7,12 +8,11 @@ class Account extends StatefulWidget {
   State<Account> createState() => _AccountState();
 }
 
-
 //checks if user clicks on sign out button
 class _AccountState extends State<Account> {
   Future<void> _signOut() async {
     try {
-      await FirebaseAuth.instance.signOut(); 
+      await FirebaseAuth.instance.signOut();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Signed out")),
@@ -30,13 +30,16 @@ class _AccountState extends State<Account> {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Account'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
+        backgroundColor: Color.fromARGB(172, 90, 63, 32),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          automaticallyImplyLeading: false,
+          flexibleSpace: _buildHeaderBanner(),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Center(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -59,44 +62,74 @@ class _AccountState extends State<Account> {
               const SizedBox(height: 24),
             ],
             SizedBox(
-              width:200,
+              width: 200,
               height: 100,
               child: Card(
-                color: Colors.orange,
-                child: Center(
-                  child: GestureDetector(
-                    onTap:() => {
-                      Navigator.pushNamed(context, "/stafflogin")
-                    },
-
-                    child: const Text("Staff Login", style: TextStyle(color: Colors.white, fontSize:25))
-                  )
-                  
-                )
-              ),
+                  color: Colors.white,
+                  child: Center(
+                      child: GestureDetector(
+                          onTap: () =>
+                              {Navigator.pushNamed(context, "/stafflogin")},
+                          child: const Text("Staff Login",
+                              style: TextStyle(
+                                  color: Color.fromARGB(155, 70, 11, 188),
+                                  fontSize: 25))))),
             ),
 
             SizedBox(
               width: 200,
-              height: 100, 
+              height: 100,
               child: Card(
-                color: Colors.orange,
-                child: Center(
-                  child: GestureDetector(
-                    onTap:(){
+                  color: Colors.white,
+                  child: Center(
+                      child: GestureDetector(
+                    onTap: () {
                       Navigator.pushNamed(context, "/userlogin");
                     },
-
-                    child: const Text(
-                      "User Login",
-                      style: TextStyle(color: Colors.white, fontSize: 25)
-                                    ),
-                  ))
-              ),
+                    child: const Text("User Login",
+                        style: TextStyle(
+                            color: Color.fromARGB(155, 70, 11, 188),
+                            fontSize: 25)),
+                  ))),
             )
           ],
-        )
-      )
-    );       
+        )));
   }
+}
+
+Widget _buildHeaderBanner() {
+  return Container(
+    height: 120,
+    margin: const EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(255, 149, 0, 0.7),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(24),
+        bottomRight: Radius.circular(24),
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Center(
+            child: Text(
+              "Account",
+              style: GoogleFonts.notoSans(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

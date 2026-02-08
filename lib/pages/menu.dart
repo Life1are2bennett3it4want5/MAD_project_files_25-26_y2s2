@@ -1,294 +1,337 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+class MenuCategory {
+  final String title;
+  final String imagePath;
+  final List<MenuItem> items;
+
+  MenuCategory({
+    required this.title,
+    required this.imagePath,
+    required this.items,
+  });
+}
+
+class MenuItem {
+  final String name;
+  final String price;
+  final String imagePath;
+  final String description;
+
+  MenuItem(this.name, this.price, this.imagePath, [this.description = '']);
+}
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
   @override
-  State<MenuPage> createState() => _UserLoginState();
+  State<MenuPage> createState() => _MenuPageState();
 }
 
-class _UserLoginState extends State<MenuPage> {
-  //Mains
-  final mainMenuItems = [
-    //Spaghetti Carbonara
-    ListTile(
-      title: Text("Spagetti Carbonara",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-          "A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta",
-          style: TextStyle(fontSize: 13)),
-      leading: const CircleAvatar(
-          radius: 20,
-          backgroundImage: AssetImage('assets/menu/Spaghetti-Carbonara.webp')),
-      trailing: const Text("\$18", style: TextStyle(fontSize: 20)),
-    ),
+class _MenuPageState extends State<MenuPage> {
+  static const Color _orangeBackground = Color.fromARGB(172, 90, 63, 32);
 
-    //Angus Beef Burger
-    ListTile(
-      title: Text("Angus Beef Burger",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "150g of Angus Beef, flame-grilled with applewood",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/AngusBeefBurger.jpg'),
-      ),
-      trailing: const Text(
-        "\$15",
-        style: TextStyle(fontSize: 20),
-      ),
+  final List<MenuCategory> _categories = [
+    MenuCategory(
+      title: "Burgers, Pasta and Mains",
+      imagePath: 'assets/img/Main.png',
+      items: [
+        MenuItem(
+            "Spaghetti Carbonara",
+            "\$20",
+            'assets/menu/Spaghetti-Carbonara.webp',
+            'A creamy parmesan sauce lathered on Spaghetti with bits of crispy pancetta'),
+        MenuItem(
+          "Angus Beef Burger",
+          "\$18",
+          'assets/menu/AngusBeefBurger.jpg',
+          "150g of Angus Beef, flame-grilled with applewood",
+        ),
+      ],
     ),
-  ];
-  //Appetizers
-  final appetizerMenuItems = [
-    //Calamari Rings
-    ListTile(
-      title: Text("Calamari Rings",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Deep Fried squid rings coated in a crispy batter",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/CalamariRings.jpeg'),
-      ),
-      trailing: const Text(
-        "\$8",
-        style: TextStyle(fontSize: 20),
-      ),
+    MenuCategory(
+      title: "Appetizers",
+      imagePath: 'assets/img/Appetizers.png',
+      items: [
+        MenuItem("Calamari Rings", "\$8", 'assets/menu/CalamariRings.jpeg',
+            'Deep Fried squid rings coated in a crispy batter'),
+        MenuItem("Oyster Fry", "\$10", 'assets/menu/OysterFry.jpg',
+            'Fresh Oysters coated with our signature spice loaded batter'),
+      ],
     ),
-    //Oyster Fry
-    ListTile(
-      title: Text("Oyster Fry",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Fresh Oysters coated with our signature spice loaded batter",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/OysterFry.jpg'),
-      ),
-      trailing: const Text(
-        "\$10",
-        style: TextStyle(fontSize: 20),
-      ),
+    MenuCategory(
+      title: "Fries, Onion Rings and Sides",
+      imagePath: 'assets/img/Sides.png',
+      items: [
+        MenuItem("French Fries", "\$4.50", 'assets/menu/FrenchFries.jpg',
+            'Crispy french fries, made with love'),
+        MenuItem(
+            "Garden Side Salad",
+            "\$5.50",
+            'assets/menu/GardenSideSalad.jpg',
+            "Our special salad with a drizzle of secret sauce"),
+        MenuItem("Onion Rings", "\$4.50", 'assets/menu/OnionRings.webp',
+            "Taste the onion, feel the crunch"),
+      ],
     ),
-  ];
-  //Sides
-  final sideMenuItems = [
-    //French Fries
-    ListTile(
-      title: Text("French Fries",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Crispy french fries, made with love",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/FrenchFries.jpg'),
-      ),
-      trailing: const Text(
-        "\$4.50",
-        style: TextStyle(fontSize: 20),
-      ),
+    MenuCategory(
+      title: "Drinks",
+      imagePath: 'assets/img/Drinks.png',
+      items: [
+        MenuItem("Ginger Ale", "\$3.50", 'assets/menu/GingerAle.jpg',
+            "Ginger flavoured soda that makes you want second servings"),
+        MenuItem("Fizzy Peach", "\$3.50", 'assets/menu/FizzyPeach.webp',
+            "Peach Juice mixed with Soda"),
+      ],
     ),
-    //Garden Side Salad
-    ListTile(
-      title: Text("Garden Side Salad",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Our special salad with a drizzle of secret sauce",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/GardenSideSalad.jpg'),
-      ),
-      trailing: const Text(
-        "\$5.50",
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-    //Onion Rings
-    ListTile(
-      title: Text("Onion Rings",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Taste the onion, feel the crunch",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/OnionRings.webp'),
-      ),
-      trailing: const Text(
-        "\$4.50",
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-  ];
-  //Drinks
-  final drinkMenuItems = [
-    //Ginger Ale
-    ListTile(
-      title: Text("Ginger Ale",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Ginger flavoured soda that makes you want second servings",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/GingerAle.jpg'),
-      ),
-      trailing: const Text(
-        "\$3.50",
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-    //Fizzy Peach
-    ListTile(
-      title: Text("Fizzy Peach",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Peach Juice mixed with Soda",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/FizzyPeach.webp'),
-      ),
-      trailing: const Text(
-        "\$3.50",
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-  ];
-  //Desserts
-  final dessertMenuItems = [
-    //Pudding
-    ListTile(
-      title: Text("Pudding",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Velvety smooth and sweet pudding",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/Pudding.avif'),
-      ),
-      trailing: const Text(
-        "\$4",
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-    //Vanilla Ice Cream
-    ListTile(
-      title: Text("Vanilla Ice Cream",
-          style: GoogleFonts.publicSans(
-              fontSize: 16, fontWeight: FontWeight.w500)),
-      subtitle: const Text(
-        "Simple, creamy and timelessly delicious",
-        style: TextStyle(fontSize: 13),
-      ),
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage('assets/menu/VanillaIceCream.jpg'),
-      ),
-      trailing: const Text(
-        "\$3",
-        style: TextStyle(fontSize: 20),
-      ),
+    MenuCategory(
+      title: "Desserts",
+      imagePath: 'assets/img/Desserts.png',
+      items: [
+        MenuItem("Pudding", "\$4", 'assets/menu/Pudding.avif',
+            'Velvety smooth and sweet pudding'),
+        MenuItem("Vanilla Ice Cream", "\$3", 'assets/menu/VanillaIceCream.jpg',
+            'Simple, creamy and timelessly delicious'),
+      ],
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Main Menu'),
-        centerTitle: true,
+      backgroundColor: _orangeBackground,
+      body: CustomScrollView(
+        slivers: [
+          // Header banner with "Main Menu"
+          SliverToBoxAdapter(
+            child: _buildHeaderBanner(),
+          ),
+          // Category sections
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _buildCategorySection(_categories[index]);
+              },
+              childCount: _categories.length,
+            ),
+          ),
+        ],
       ),
-      body: ListView(children: [
-        //Main
-        ExpansionTile(
-            backgroundColor: Colors.white,
-            leading: const CircleAvatar(
-                radius: 25, backgroundImage: AssetImage('assets/img/Main.png')),
-            title: Text("Burgers, Pasta and Mains",
+    );
+  }
+
+  Widget _buildHeaderBanner() {
+    return Container(
+      height: 120,
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(255, 149, 0, 0.7),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(
+                  color: Color.fromRGBO(255, 149, 0, 0.7),
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Main Menu",
                 style: GoogleFonts.notoSans(
-                  fontSize: 22,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
-                )),
-            children: mainMenuItems),
-        //Appetizers
-        ExpansionTile(
-          backgroundColor: Colors.white,
-          leading: const CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage('assets/img/Appetizers.png')),
-          title: Text("Appetizers",
-              style: GoogleFonts.notoSans(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              )),
-          children: appetizerMenuItems,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
-        //Sides
-        ExpansionTile(
-          backgroundColor: Colors.white,
-          leading: const CircleAvatar(
-              radius: 25, backgroundImage: AssetImage('assets/img/Sides.png')),
-          title: Text("Fries, Onion Rings and Sides",
-              style: GoogleFonts.notoSans(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              )),
-          children: sideMenuItems,
+      ),
+    );
+  }
+
+  Widget _buildCategorySection(MenuCategory category) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                category.title,
+                style: GoogleFonts.notoSans(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: Colors.grey.shade400,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 200,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: category.items.length,
+              itemBuilder: (context, index) {
+                return _buildFoodItemCard(category.items[index]);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showItemDialog(BuildContext context, MenuItem item) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 320),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.name,
+                  style: GoogleFonts.notoSans(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 160,
+                    child: Image.asset(
+                      item.imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  item.price,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                if (item.description.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Text(
+                    item.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade700,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
-        //Drinks
-        ExpansionTile(
-          backgroundColor: Colors.white,
-          leading: const CircleAvatar(
-              radius: 25, backgroundImage: AssetImage('assets/img/Drinks.png')),
-          title: Text("Drinks",
-              style: GoogleFonts.notoSans(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              )),
-          children: drinkMenuItems,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Close"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFoodItemCard(MenuItem item) {
+    return Container(
+      width: 140,
+      margin: const EdgeInsets.only(right: 12),
+      child: SizedBox(
+        height: 200,
+        child: Container(
+          decoration: BoxDecoration(
+            color: _orangeBackground,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade700, width: 1),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(11)),
+                child: GestureDetector(
+                  onTap: () => _showItemDialog(context, item),
+                  child: SizedBox(
+                    height: 110,
+                    child: Image.asset(
+                      item.imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      item.name,
+                      style: GoogleFonts.publicSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      item.price,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        //Desserts
-        ExpansionTile(
-          backgroundColor: Colors.white,
-          leading: const CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage('assets/img/Desserts.png')),
-          title: Text("Desserts",
-              style: GoogleFonts.notoSans(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              )),
-          children: dessertMenuItems,
-        ),
-      ]),
+      ),
     );
   }
 }

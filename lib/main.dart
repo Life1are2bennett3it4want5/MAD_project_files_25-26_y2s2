@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/pages/deliverymappage.dart';
+import 'package:project/pages/login/resetpassword.dart';
 import 'package:project/startuppage.dart';
 import 'nav.dart';
 import 'theme.dart';
@@ -14,27 +15,23 @@ import 'pages/ordersummarypage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp( MaterialApp(
-      home: const StartupPage(),
-      theme: primaryTheme,
-      routes: {
-        "/mainpage": (context) => const LoginPage(),
-        "/ordermenu": (context)=> const OrderMenuPage(),
-        "/stafflogin": (context) => const StaffLogin(),
-        "/ordersummaries": (context) => const OrderSummaries(),
-        "/location": (context) => const MapPage(),
-        "/deliverymap": (context) => const DeliveryMapPage(),
-        "/tablenumber": (context) => const InputTable(),
-        "/userlogin": (context) => const UserLogin(),
-        "/ordersummaryuser": (context) => const OrderSummaryPage(),
-      }
-    )
-  );
+  runApp(MaterialApp(home: const StartupPage(), theme: primaryTheme, routes: {
+    "/mainpage": (context) => const LoginPage(),
+    "/ordermenu": (context) => const OrderMenuPage(),
+    "/stafflogin": (context) => const StaffLogin(),
+    "/ordersummaries": (context) => const OrderSummaries(),
+    "/location": (context) => const MapPage(),
+    "/deliverymap": (context) => const DeliveryMapPage(),
+    "/tablenumber": (context) => const InputTable(),
+    "/userlogin": (context) => const UserLogin(),
+    "/ordersummaryuser": (context) => const OrderSummaryPage(),
+    "/resetpassword": (context) => const ResetPassword(),
+  }));
 }

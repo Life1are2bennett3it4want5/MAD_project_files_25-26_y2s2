@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // cloud_firestore also has a type named "Order", so we hide it to avoid a name clash with our own Order class.
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'servicefile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BillPage extends StatefulWidget {
   const BillPage({super.key});
@@ -52,8 +53,13 @@ class _BillPageState extends State<BillPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(172, 90, 63, 32),
       appBar: AppBar(
-        title: const Text("Your Bill"),
+        toolbarHeight: 80,
+        automaticallyImplyLeading: false,
+        flexibleSpace: _buildHeaderBanner(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       // Listen to which bill is currently active for this user session.
       body: ValueListenableBuilder<String?>(
@@ -95,7 +101,8 @@ class _BillPageState extends State<BillPage> {
                 _clearActiveBillAfterFrame(
                   message: "Payment received. Bill closed.",
                 );
-                return const Center(child: Text("Payment received. Bill closed."));
+                return const Center(
+                    child: Text("Payment received. Bill closed."));
               }
 
               final totalBill = orders.fold(
@@ -129,8 +136,7 @@ class _BillPageState extends State<BillPage> {
                               final order = orders[index];
                               double orderTotal = _calcOrderCost(order);
                               return Card(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 8),
+                                margin: const EdgeInsets.symmetric(vertical: 8),
                                 child: Padding(
                                   padding: const EdgeInsets.all(12),
                                   child: Column(
@@ -182,8 +188,8 @@ class _BillPageState extends State<BillPage> {
                                     if (!context.mounted) return;
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content:
-                                            Text("Error requesting payment: $e"),
+                                        content: Text(
+                                            "Error requesting payment: $e"),
                                       ),
                                     );
                                   }
@@ -205,4 +211,41 @@ class _BillPageState extends State<BillPage> {
       ),
     );
   }
+}
+
+Widget _buildHeaderBanner() {
+  return Container(
+    height: 120,
+    margin: const EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(255, 149, 0, 0.7),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(24),
+        bottomRight: Radius.circular(24),
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Center(
+            child: Text(
+              "View Bill",
+              style: GoogleFonts.notoSans(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

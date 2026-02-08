@@ -72,7 +72,7 @@ class _UserLoginState extends State<UserLogin> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
-      
+      // Show a simple message for common Firebase Auth errors.
       final message = switch (e.code) {
         'invalid-email' => 'Invalid email format.',
         'user-not-found' => 'No account found for this email.',
@@ -80,9 +80,8 @@ class _UserLoginState extends State<UserLogin> {
         'invalid-credential' => 'Email or password is incorrect.',
         'INVALID_LOGIN_CREDENTIALS' => 'Email or password is incorrect.',
         'operation-not-allowed' => 'Email/password sign-in is not enabled.',
-        _ => e.message ?? 'Login failed. Try again.',
+        _ => e.message ?? 'Authentication error.'
       };
-
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
         backgroundColor: Colors.lightBlue,
@@ -117,7 +116,7 @@ class _UserLoginState extends State<UserLogin> {
               const SizedBox(height: 60),
 
               Text(
-                _isLogin ? "Sign in" : "Create account",
+                _isLogin ? "Welcome back" : "Create Account",
                 style:
                     const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
@@ -200,6 +199,26 @@ class _UserLoginState extends State<UserLogin> {
                 ),
               ),
 
+              if (_isLogin) ...[
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/resetpassword");
+                    },
+                    child: const Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+
               if (!_isLogin) ...[
                 const SizedBox(height: 16),
                 // Only needed when creating an account.
@@ -243,7 +262,7 @@ class _UserLoginState extends State<UserLogin> {
                 height: 52,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B2D2D),
+                    backgroundColor: const Color.fromARGB(255, 255, 140, 0),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
